@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("./fonts/DMSans-Regular.ttf");
+}
+
+body {
+  font-family: "DM Sans";
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  word-wrap: break-word;
+  background-color: var(--el-bg-color);
+  margin: 0;
+}
+
+.el-menu {
+  border: none !important;
+}

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "jsx": "preserve",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+
+    "baseUrl": ".",
+    "module": "ESNext",
+
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/components/*": ["./src/components/*", "./src/components/*/index.vue"],
+      "@/services/*": ["./src/services/*", "./src/services/*/index.ts"],
+      "@/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "types": ["element-plus/global", "vue-final-modal"],
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tests/**/*.ts", "./components.d.ts"],
+  "exclude": ["node_modules", "dist", "public"]
+}
