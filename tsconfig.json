@@ -12,7 +12,7 @@
     "paths": {
       "@/components/*": ["./src/components/*", "./src/components/*/index.vue"],
       "@/services/*": ["./src/services/*", "./src/services/*/index.ts"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
     },
     "resolveJsonModule": true,
     "types": ["element-plus/global", "vue-final-modal"],
@@ -28,6 +28,6 @@
     "skipLibCheck": true
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tests/**/*.ts", "./components.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "./components.d.ts"],
   "exclude": ["node_modules", "dist", "public"]
 }
