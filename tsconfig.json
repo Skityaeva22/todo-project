@@ -12,7 +12,7 @@
     "paths": {
       "@/components/*": ["./src/components/*", "./src/components/*/index.vue"],
       "@/services/*": ["./src/services/*", "./src/services/*/index.ts"],
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "types": ["element-plus/global", "vue-final-modal"],

@@ -5,7 +5,7 @@ const API_URL = 'https://dummyjson.com/todos'
 /**
  * Функция для выполнения fetch запроса к API с параметрами
  * @param {TodosRequest} params - параметры запроса
- * @returns {Promise<TodosResponse>}
+ * @returns {Promise<TodosResponse>} - ответ
  */
 async function fetchTodos(params?: TodosRequest): Promise<TodosResponse> {
   let url = `${API_URL}`

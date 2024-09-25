@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { useToDoStore } from "@/store/to-do-store";
-import { onMounted, ref } from "vue";
-import { storeToRefs } from "pinia";
-import ToDoStatusTag from "@/widgets/ToDo";
+import { onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useToDoStore } from '@/store/to-do-store'
+import ToDoStatusTag from '@/widgets/ToDo'
 
-const toDoStore = useToDoStore();
-const { params, todos, lastPage } = storeToRefs(toDoStore);
+const toDoStore = useToDoStore()
+const { params, todos, lastPage } = storeToRefs(toDoStore)
 
-const page = ref(1);
+const page = ref(1)
 
 async function handleLoadToDos() {
-  params.value.skip = (page.value - 1) * 12;
-  await toDoStore.fetchToDos(params.value);
+  params.value.skip = (page.value - 1) * 12
+  await toDoStore.fetchToDos(params.value)
 }
 
 onMounted(async () => {
-  params.value.limit = 12;
-  params.value.skip = 0;
-  await toDoStore.fetchToDos(params.value);
-});
+  params.value.limit = 12
+  params.value.skip = 0
+  await toDoStore.fetchToDos(params.value)
+})
 </script>
 
 <template>
@@ -39,7 +39,7 @@ onMounted(async () => {
       :pager-count="11"
       layout="prev, pager, next"
       :total="lastPage"
-      class="bg-white w-fit flex self-end"
+      class="flex w-fit self-end bg-white"
       @click="handleLoadToDos"
     />
   </div>
