@@ -5,7 +5,7 @@ import { useToDoStore } from '@/store/to-do-store'
 import ToDoStatusTag from '@/widgets/ToDo'
 
 const toDoStore = useToDoStore()
-const { params, todos, lastPage } = storeToRefs(toDoStore)
+const { params, todos, lastPage, isLoading } = storeToRefs(toDoStore)
 
 const page = ref(1)
 
@@ -25,7 +25,15 @@ onMounted(async () => {
 <template>
   <div class="flex flex-col gap-5">
     <div class="h-[87vh]">
-      <ElTable :data="todos ?? []" max-height="87vh" class="w-full" border>
+      <ElTable
+        v-loading="isLoading"
+        :data="todos ?? []"
+        :header-row-style="{ height: '48px' }"
+        :row-style="{ cursor: 'pointer' }"
+        :cell-style="{ height: '48px' }"
+        max-height="87vh"
+        border
+      >
         <ElTableColumn prop="id" label="ID" width="100" />
         <ElTableColumn prop="todo" label="Описание задачи" width="auto" />
         <ElTableColumn prop="completed" label="Статус" width="150">

@@ -19,7 +19,7 @@ body {
 
 .el-table {
   font-family: Arial;
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 .el-tag--large {
@@ -28,4 +28,12 @@ body {
 
 tbody {
   font-size: 14px;
+}
+
+.el-button {
+  font-family: Arial;
+}
+
+.el-table .cell {
+  white-space: nowrap !important;
 }
