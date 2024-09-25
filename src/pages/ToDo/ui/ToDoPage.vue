@@ -15,24 +15,27 @@ async function handleLoadToDos() {
 }
 
 onMounted(async () => {
-  params.value.limit = 12
-  params.value.skip = 0
+  if (params.value.limit)
+    page.value = Math.trunc(params.value.skip / params.value.limit) + 1
+  else page.value = 1
   await toDoStore.fetchToDos(params.value)
 })
 </script>
 
 <template>
   <div class="flex flex-col gap-5">
-    <ElTable :data="todos ?? []" max-height="87vh" class="w-full" border>
-      <ElTableColumn prop="id" label="ID" width="100" />
-      <ElTableColumn prop="todo" label="Описание задачи" width="auto" />
-      <ElTableColumn prop="completed" label="Статус" width="150">
-        <template #default="{ row }">
-          <ToDoStatusTag :completed="row.completed" />
-        </template>
-      </ElTableColumn>
-      <ElTableColumn prop="userId" label="ID ответственного" width="170" />
-    </ElTable>
+    <div class="h-[87vh]">
+      <ElTable :data="todos ?? []" max-height="87vh" class="w-full" border>
+        <ElTableColumn prop="id" label="ID" width="100" />
+        <ElTableColumn prop="todo" label="Описание задачи" width="auto" />
+        <ElTableColumn prop="completed" label="Статус" width="150">
+          <template #default="{ row }">
+            <ToDoStatusTag :completed="row.completed" />
+          </template>
+        </ElTableColumn>
+        <ElTableColumn prop="userId" label="ID ответственного" width="170" />
+      </ElTable>
+    </div>
     <ElPagination
       v-model:current-page="page"
       :page-size="params.limit"
