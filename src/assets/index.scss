@@ -37,3 +37,19 @@ tbody {
 .el-table .cell {
   white-space: nowrap !important;
 }
+
+.el-input-number .el-input__inner {
+  text-align: left !important;
+}
+
+.el-form-item {
+  margin-bottom: 2px !important;
+}
+
+.el-form-item--label-top .el-form-item__label {
+  margin-bottom: 2px !important;
+}
+
+.el-notification {
+  font-family: Arial;
+}

@@ -3,7 +3,7 @@ import type { TodosRequest, TodosResponse } from '@/shared/types/to-do'
 const API_URL = 'https://dummyjson.com/todos'
 
 /**
- * Функция для выполнения fetch запроса к API с параметрами
+ * Функция для получения списка ToDo
  * @param {TodosRequest} params - параметры запроса
  * @returns {Promise<TodosResponse>} - ответ
  */

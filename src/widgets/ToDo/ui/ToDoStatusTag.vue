@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { defineStatus } from '@/shared/lib/defineToDoStatus'
 
 const props = defineProps<{

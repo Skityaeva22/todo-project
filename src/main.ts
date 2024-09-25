@@ -6,11 +6,13 @@ import ru from 'element-plus/es/locale/lang/ru'
 import '@/assets/tailwind/base.postcss'
 import '@/assets/index.scss'
 import 'element-plus/dist/index.css'
-import 'vue-final-modal/style.css'
 import '@/assets/tailwind/index.postcss'
 
 import { createVfm } from 'vue-final-modal'
 import { createPinia } from 'pinia'
+
+import 'vue-final-modal/style.css'
+
 import App from '@/app'
 import router from '@/providers'
 

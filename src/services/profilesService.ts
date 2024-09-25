@@ -1,9 +1,9 @@
-import type { UserProfileRequest, UserProfileResponse } from '@/shared/types/profile'
+import type { UserProfileForm, UserProfileRequest, UserProfileResponse } from '@/shared/types/profile'
 
 const API_URL = 'https://dummyjson.com/users'
 
 /**
- * Функция для выполнения fetch запроса к API с параметрами
+ * Функция для получения списка пользователей
  * @param {UserProfileRequest} params - параметры запроса
  * @returns {Promise<UserProfileResponse>} - ответ
  */
@@ -23,4 +23,22 @@ async function fetchUserProfiles(params?: UserProfileRequest): Promise<UserProfi
   return data
 }
 
-export { fetchUserProfiles }
+async function createUserProfile(user: UserProfileForm): Promise<any> {
+  try {
+    const response = await fetch(`${API_URL}/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+    const data = await response.json()
+    return data
+  }
+  catch (error) {
+    console.error('Ошибка:', error)
+    throw error
+  }
+}
+
+export { fetchUserProfiles, createUserProfile }

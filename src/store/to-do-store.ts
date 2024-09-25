@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { fetchTodos } from '@/services/todosService'
 import type { Todo, TodosRequest } from '@/shared/types/to-do'
+import { customNotification } from '@/shared/notify/notify'
 
 export const useToDoStore = defineStore('to-do-store', {
   state: () => ({
@@ -32,7 +33,7 @@ export const useToDoStore = defineStore('to-do-store', {
         this.lastPage = data.total
       }
       catch (e) {
-        console.log(e)
+        customNotification({ message: 'Ошибка при выводе списка ToDo', type: 'error' })
       }
       finally {
         this.isLoading = false
