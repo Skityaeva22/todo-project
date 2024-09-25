@@ -1,1 +1,3 @@
-<template>frgv</template>
+<template>
+  <p>Профили</p>
+</template>

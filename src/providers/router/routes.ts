@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from "vue-router";
-import { ROUTER_NAMES } from "@/shared/router/routes";
+import type { RouteRecordRaw } from 'vue-router'
+import { ROUTER_NAMES } from '@/shared/router/routes'
 
 const routes: readonly RouteRecordRaw[] = [
   {
@@ -26,6 +26,6 @@ const routes: readonly RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes

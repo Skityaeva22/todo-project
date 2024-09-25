@@ -2,7 +2,7 @@
 import { useToDoStore } from "@/store/to-do-store";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
-import ToDoStatusTag from "@/widgets/ToDo"
+import ToDoStatusTag from "@/widgets/ToDo";
 
 const toDoStore = useToDoStore();
 const { params, todos, lastPage } = storeToRefs(toDoStore);
@@ -10,7 +10,7 @@ const { params, todos, lastPage } = storeToRefs(toDoStore);
 const page = ref(1);
 
 async function handleLoadToDos() {
-  params.value.skip = (page.value - 1)*12;
+  params.value.skip = (page.value - 1) * 12;
   await toDoStore.fetchToDos(params.value);
 }
 
@@ -18,7 +18,7 @@ onMounted(async () => {
   params.value.limit = 12;
   params.value.skip = 0;
   await toDoStore.fetchToDos(params.value);
-})
+});
 </script>
 
 <template>

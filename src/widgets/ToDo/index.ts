@@ -1,3 +1,3 @@
-import ToDoStatusTag from "./ui/ToDoStatusTag.vue";
+import ToDoStatusTag from './ui/ToDoStatusTag.vue'
 
-export default ToDoStatusTag;
+export default ToDoStatusTag

@@ -1,5 +1,5 @@
 export const ROUTER_NAMES = {
-    MAIN: "Main",
-    TODO: "ToDo",
-    PROFILES: "Profiles",
-};
+  MAIN: 'Main',
+  TODO: 'ToDo',
+  PROFILES: 'Profiles',
+}

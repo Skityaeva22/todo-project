@@ -1,3 +1,3 @@
-import Profiles from "./ui/ProfilesPage.vue";
+import Profiles from './ui/ProfilesPage.vue'
 
-export default Profiles;
+export default Profiles

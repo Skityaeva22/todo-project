@@ -1,6 +1,6 @@
-import { TodosRequest, TodosResponse } from "@/shared/types/to-do";
+import type { TodosRequest, TodosResponse } from '@/shared/types/to-do'
 
-const API_URL = 'https://dummyjson.com/todos';
+const API_URL = 'https://dummyjson.com/todos'
 
 /**
  * Функция для выполнения fetch запроса к API с параметрами
@@ -8,20 +8,19 @@ const API_URL = 'https://dummyjson.com/todos';
  * @returns {Promise<TodosResponse>}
  */
 async function fetchTodos(params?: TodosRequest): Promise<TodosResponse> {
-    let url = `${API_URL}`
+  let url = `${API_URL}`
 
-    if (params) {
-        const { limit, skip } = params;
-        url = `${url}?limit=${limit}&skip=${skip}`;
-    }
+  if (params) {
+    const { limit, skip } = params
+    url = `${url}?limit=${limit}&skip=${skip}`
+  }
 
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
+  const response = await fetch(url)
+  if (!response.ok)
+    throw new Error(`Ошибка HTTP: ${response.status}`)
 
-    const data: TodosResponse = await response.json();
-    return data;
-};
+  const data: TodosResponse = await response.json()
+  return data
+}
 
-export { fetchTodos };
+export { fetchTodos }

@@ -1,3 +1,3 @@
-import Main from "./ui/MainPage.vue";
+import Main from './ui/MainPage.vue'
 
-export default Main;
+export default Main

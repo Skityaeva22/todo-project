@@ -1,45 +1,48 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { ROUTER_NAMES } from "@/shared/router/routes";
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ROUTER_NAMES } from '@/shared/router/routes'
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
 
-const activePage = ref("");
-const isCollapse = ref(false);
+const activePage = ref('')
+const isCollapse = ref(false)
 
 function handleToggleCollapse() {
-  isCollapse.value = !isCollapse.value;
-};
+  isCollapse.value = !isCollapse.value
+}
 
 function handleGoTo(name: string) {
-  activePage.value = name;
-  router.push({ name });
+  activePage.value = name
+  router.push({ name })
 }
 
 function defineActivePage() {
-  if (route.path.includes("to-do")) activePage.value = ROUTER_NAMES.TODO;
-  else if (route.path.includes("profiles"))
-    activePage.value = ROUTER_NAMES.PROFILES;
+  if (route.path.includes('to-do'))
+    activePage.value = ROUTER_NAMES.TODO
+  else if (route.path.includes('profiles'))
+    activePage.value = ROUTER_NAMES.PROFILES
 }
 
 onMounted(() => {
-  defineActivePage();
-});
+  defineActivePage()
+})
 </script>
 
 <template>
   <ElMenu
     :default-active="activePage"
     :collapse="isCollapse"
-    class="flex !h-screen flex-col el-menu-collapse-transition"
+    class="el-menu-collapse-transition flex !h-screen flex-col"
     @select="handleGoTo"
   >
-    <div class="flex h-[70px] w-[240px] items-center justify-between gap-2.5 p-5">
+    <div
+      class="flex h-[70px] w-[240px] items-center justify-between gap-2.5 p-5"
+    >
       <h2
         v-if="!isCollapse"
-        class="font-medium text-main_blue text-[22px]/[30px]"
+        class="text-[22px]/[30px] font-medium text-main_blue"
       >
         TODO
       </h2>
@@ -71,8 +74,8 @@ onMounted(() => {
         <DocumentChecked />
       </ElIcon>
       <template #title>
-        To Do
-      </template>  
+        <span>To Do</span>
+      </template>
     </ElMenuItem>
 
     <ElMenuItem
@@ -83,8 +86,8 @@ onMounted(() => {
         <User />
       </ElIcon>
       <template #title>
-        Profiles
-      </template>  
+        <span>Profiles</span>
+      </template>
     </ElMenuItem>
   </ElMenu>
 </template>
