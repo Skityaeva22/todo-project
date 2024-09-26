@@ -1,19 +1,38 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { Edit } from '@element-plus/icons-vue'
 import { useUserProfilesStore } from '@/store/user-profiles-store'
 import { defineFullName } from '@/shared/lib/defineFullName'
 import { defineAgeWord } from '@/shared/lib/defineAgeWord'
 import { defineGender } from '@/shared/lib/defineGender'
 import { defineRole } from '@/shared/lib/defineRole'
+import { LoginModel } from '@/models/profileModel'
+import type { UserProfile } from '@/shared/types/profile'
 
 const userProfilesStore = useUserProfilesStore()
-const { params, users, lastPage, isLoading } = storeToRefs(userProfilesStore)
+const {
+  params,
+  users,
+  lastPage,
+  isLoading,
+  currentUser,
+  loginForm,
+} = storeToRefs(userProfilesStore)
 
 const page = ref(1)
 
 async function handleLoadUserProfiles() {
   params.value.skip = (page.value - 1) * 12
+  await userProfilesStore.fetchUserProfiles(params.value)
+}
+
+async function handleChangeCurrentUser(user: UserProfile) {
+  loginForm.value = new LoginModel(user)
+  const data = await userProfilesStore.login(loginForm.value)
+  if (data)
+    await userProfilesStore.fetchCurrentUser(data.accessToken)
+
   await userProfilesStore.fetchUserProfiles(params.value)
 }
 
@@ -35,7 +54,6 @@ onMounted(async () => {
         :row-style="{ cursor: 'pointer' }"
         :cell-style="{ height: '48px' }"
         max-height="79vh"
-        border
       >
         <ElTableColumn prop="id" label="ID" width="70" />
         <ElTableColumn label="Ф.И.О." width="auto">
@@ -51,7 +69,7 @@ onMounted(async () => {
             </ElTooltip>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Username" width="105">
+        <ElTableColumn label="Username" width="auto">
           <template #default="{ row }">
             <ElTooltip
               :content="row.username"
@@ -74,7 +92,7 @@ onMounted(async () => {
             {{ defineGender(row.gender) }}
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Email" width="200">
+        <ElTableColumn label="Email" width="auto">
           <template #default="{ row }">
             <ElTooltip
               :content="row.email || '-'"
@@ -87,7 +105,7 @@ onMounted(async () => {
             </ElTooltip>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Телефон" width="140">
+        <ElTableColumn label="Телефон" width="auto">
           <template #default="{ row }">
             <ElTooltip
               :content="row.phone || '-'"
@@ -123,6 +141,24 @@ onMounted(async () => {
               <span class="truncate">
                 {{ defineRole(row.role) }}
               </span>
+            </ElTooltip>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn width="auto" align="right">
+          <template #default="{ row }">
+            <ElTooltip
+              v-if="currentUser?.id !== row.id"
+              effect="dark"
+              content="Выбрать/сменить профиль"
+              placement="bottom-end"
+            >
+              <ElButton
+                v-if="currentUser?.id !== row.id"
+                type="primary"
+                :icon="Edit"
+                circle
+                @click="handleChangeCurrentUser(row)"
+              />
             </ElTooltip>
           </template>
         </ElTableColumn>

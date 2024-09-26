@@ -1,4 +1,10 @@
-import type { GenderTypes, RoleTypes, UserProfile, UserProfileForm } from '@/shared/types/profile'
+import type {
+  GenderTypes,
+  LoginForm,
+  RoleTypes,
+  UserProfile,
+  UserProfileForm,
+} from '@/shared/types/profile'
 
 export class ProfileModel implements UserProfileForm {
   firstName: string
@@ -24,5 +30,14 @@ export class ProfileModel implements UserProfileForm {
     this.password = user?.password ?? ''
     this.birthDate = user?.birthDate ?? ''
     this.role = user?.role ?? ''
+  }
+}
+
+export class LoginModel implements LoginForm {
+  password: string
+  username: string
+  constructor(user?: UserProfile) {
+    this.password = user?.password ?? ''
+    this.username = user?.username ?? ''
   }
 }

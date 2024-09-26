@@ -1,4 +1,11 @@
-import type { UserProfileForm, UserProfileRequest, UserProfileResponse } from '@/shared/types/profile'
+import type {
+  LoginForm,
+  UserLoginResponse,
+  UserProfile,
+  UserProfileForm,
+  UserProfileRequest,
+  UserProfileResponse,
+} from '@/shared/types/profile'
 
 const API_URL = 'https://dummyjson.com/users'
 
@@ -23,7 +30,12 @@ async function fetchUserProfiles(params?: UserProfileRequest): Promise<UserProfi
   return data
 }
 
-async function createUserProfile(user: UserProfileForm): Promise<any> {
+/**
+ * Функция для создания профиля пользователя
+ * @param {UserProfileForm} user - форма записи пользователя
+ * @returns {Promise<UserProfile>} - ответ
+ */
+async function createUserProfile(user: UserProfileForm): Promise<UserProfile> {
   try {
     const response = await fetch(`${API_URL}/add`, {
       method: 'POST',
@@ -41,4 +53,49 @@ async function createUserProfile(user: UserProfileForm): Promise<any> {
   }
 }
 
-export { fetchUserProfiles, createUserProfile }
+/**
+ * Функция для авторизации пользователя
+ * @param {LoginForm}login - форма авторизации
+ * @returns {Promise<UserLoginResponse>} - ответ
+ */
+async function login(login: LoginForm): Promise<UserLoginResponse> {
+  const response = await fetch('https://dummyjson.com/user/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: login.username,
+      password: login.password,
+      expiresInMins: 30,
+    }),
+  })
+
+  if (!response.ok)
+    throw new Error('Ошибка авторизации')
+
+  const data: UserLoginResponse = await response.json()
+  return data
+}
+
+/**
+ * Функция для получения данных текущего пользователя
+ * @param {string}accessToken - токен авторизации
+ * @returns {Promise<UserProfile>} - ответ
+ */
+async function fetchCurrentUser(accessToken: string): Promise<UserProfile> {
+  const response = await fetch('https://dummyjson.com/user/me', {
+    mode: 'no-cors',
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  if (!response.ok)
+    throw new Error('Ошибка при получении данных текущего пользователя')
+
+  const data: UserProfile = await response.json()
+  return data
+}
+
+export { fetchUserProfiles, createUserProfile, login, fetchCurrentUser }

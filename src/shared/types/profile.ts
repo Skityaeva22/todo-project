@@ -16,6 +16,25 @@ export interface UserProfileResponceInfo {
   limit: number
 }
 
+/** Данные для авторизации */
+export interface LoginForm {
+  username: string
+  password: string
+}
+
+/** Ответ после авторизации */
+export interface UserLoginResponse {
+  id: 1
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  gender: GenderTypes | string
+  image: string
+  accessToken: string // JWT accessToken (for backward compatibility) in response and cookies
+  refreshToken: string // refreshToken in response and cookies
+}
+
 /** Профиль пользователя */
 export interface UserProfile {
   id: number

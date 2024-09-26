@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { createUserProfile, fetchUserProfiles } from '@/services/profilesService'
-import type { UserProfile, UserProfileForm, UserProfileRequest } from '@/shared/types/profile'
-import { ProfileModel } from '@/models/profileModel'
+import { createUserProfile, fetchCurrentUser, fetchUserProfiles, login } from '@/services/profilesService'
+import type { LoginForm, UserProfile, UserProfileForm, UserProfileRequest } from '@/shared/types/profile'
+import { LoginModel, ProfileModel } from '@/models/profileModel'
 import { customNotification } from '@/shared/notify/notify'
 
 export const useUserProfilesStore = defineStore('user-profiles-store', {
@@ -14,6 +14,8 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
       skip: 0,
     } as UserProfileRequest,
     form: new ProfileModel() as UserProfileForm,
+    loginForm: new LoginModel() as LoginForm,
+    currentUser: {} as UserProfile | null,
   }),
   actions: {
     resetParams() {
@@ -29,6 +31,12 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
     },
     resetForm() {
       this.form = new ProfileModel()
+    },
+    resetLoginForm() {
+      this.loginForm = new LoginModel()
+    },
+    resetCurrentUser() {
+      this.currentUser = null
     },
     async fetchUserProfiles(params?: UserProfileRequest) {
       this.isLoading = true
@@ -54,6 +62,20 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
       }
       catch (e) {
         customNotification({ message: 'Ошибка при сохранении данных', type: 'error' })
+      }
+    },
+    async fetchCurrentUser(accessToken: string) {
+      const data = await fetchCurrentUser(accessToken)
+      this.currentUser = data
+      customNotification({ message: 'Данные пользователя успешно загружены', type: 'success' })
+    },
+    async login(loginForm: LoginForm) {
+      try {
+        const data = await login(loginForm)
+        return data
+      }
+      catch (e) {
+        customNotification({ message: 'Ошибка авторизации', type: 'error' })
       }
     },
     reset() {
