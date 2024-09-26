@@ -1,3 +1,10 @@
+# Скитяева Анастасия Николаевна
+
+Тестовое задание приложения ToDo со страницами списков ToDo и профилей пользователей.
+Получено: 23.09.24. Выполнено: 26.09.24.
+
+API: https://dummyjson.com/docs/todos
+
 # todo-project
 
 This template should help get you started developing with Vue 3 in Vite.
