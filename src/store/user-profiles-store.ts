@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { createUserProfile, fetchCurrentUser, fetchUserProfiles, login } from '@/services/profilesService'
+import { createUserProfile, fetchCurrentUser, fetchUserProfile, fetchUserProfiles, login } from '@/services/profilesService'
 import type { LoginForm, UserProfile, UserProfileForm, UserProfileRequest } from '@/shared/types/profile'
 import { LoginModel, ProfileModel } from '@/models/profileModel'
 import { customNotification } from '@/shared/notify/notify'
@@ -38,6 +38,9 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
     resetCurrentUser() {
       this.currentUser = null
     },
+    setCurrentUser(user: UserProfile) {
+      this.currentUser = user
+    },
     async fetchUserProfiles(params?: UserProfileRequest) {
       this.isLoading = true
       try {
@@ -52,12 +55,23 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
         this.isLoading = false
       }
     },
+    async fetchUserProfile(id: number) {
+      try {
+        const data = await fetchUserProfile(id)
+        this.currentUser = data
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+        customNotification({ message: 'Данные профиля успешно получены', type: 'success' })
+      }
+      catch (e) {
+        customNotification({ message: 'Ошибка при получении данных', type: 'error' })
+      }
+    },
     async createUserProfile(form: UserProfileForm) {
       try {
         const data = await createUserProfile(form)
         if (data) {
           customNotification({ message: 'Данные профиля успешно сохранены', type: 'success' })
-          await fetchUserProfiles(this.params)
+          await this.fetchUserProfiles(this.params)
         }
       }
       catch (e) {
@@ -72,11 +86,23 @@ export const useUserProfilesStore = defineStore('user-profiles-store', {
     async login(loginForm: LoginForm) {
       try {
         const data = await login(loginForm)
+        localStorage.setItem('accessToken', JSON.stringify(data.accessToken))
         return data
       }
       catch (e) {
         customNotification({ message: 'Ошибка авторизации', type: 'error' })
       }
+    },
+    async removeLocalStorageUser() {
+      localStorage.removeItem('currentUser')
+      this.resetCurrentUser()
+      await this.fetchUserProfiles(this.params)
+    },
+    findLocalStorageUser() {
+      const localStorageUser: null | string = localStorage.getItem('currentUser')
+      if (localStorageUser)
+        this.setCurrentUser(JSON.parse(localStorageUser))
+      else this.resetCurrentUser()
     },
     reset() {
       this.resetParams()

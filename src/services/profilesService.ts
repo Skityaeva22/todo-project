@@ -83,7 +83,6 @@ async function login(login: LoginForm): Promise<UserLoginResponse> {
  */
 async function fetchCurrentUser(accessToken: string): Promise<UserProfile> {
   const response = await fetch('https://dummyjson.com/user/me', {
-    mode: 'no-cors',
     method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -98,4 +97,25 @@ async function fetchCurrentUser(accessToken: string): Promise<UserProfile> {
   return data
 }
 
-export { fetchUserProfiles, createUserProfile, login, fetchCurrentUser }
+/**
+ * Функция для получения данных пользователя по id
+ * @param {number}id - id пользователя
+ * @returns {Promise<UserProfile>} - ответ
+ */
+async function fetchUserProfile(id: number): Promise<UserProfile> {
+  try {
+    const response = await fetch(`https://dummyjson.com/users/${id}`)
+
+    if (!response.ok)
+      throw new Error(`Error: ${response.status}`)
+
+    const data: UserProfile = await response.json()
+    return data
+  }
+  catch (error) {
+    console.error('Failed to fetch user:', error)
+    throw error
+  }
+}
+
+export { fetchUserProfiles, createUserProfile, login, fetchCurrentUser, fetchUserProfile }
