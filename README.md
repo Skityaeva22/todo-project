@@ -5,6 +5,12 @@
 
 API: https://dummyjson.com/docs/todos
 
+Инструкция по запуску:
+1. Импортировать репозиторий (git clone https://github.com/Skityaeva22/todo-project).
+2. Открыть в VS Code или другой среде.
+3. В терминал ввести поочередно команды npm i, npm run dev.
+4. Открыть ссылку из терминала.
+
 # todo-project
 
 This template should help get you started developing with Vue 3 in Vite.
