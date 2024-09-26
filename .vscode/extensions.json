@@ -2,6 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
-    "vue.vscode-typescript-vue-plugin"
+    "vue.vscode-typescript-vue-plugin",
+    "vue.volar"
   ]
 }
